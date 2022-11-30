@@ -1,0 +1,26 @@
+service: delfosti-carlosar
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: handler.hello
+  obtenerProducto:
+    handler: handler.obtenerProducto
+    events:
+      - http:
+          method: GET
+          path: /obtenerproducto/{id}
+  actualizarProducto:
+    handler: handler.actualizarProducto
+    events:
+      - http:
+          method: PUT
+          path: /actualizarproducto
