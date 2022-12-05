@@ -24,3 +24,21 @@ functions:
       - http:
           method: PUT
           path: /actualizarproducto
+  crearProducto:
+    handler: handler.crearProducto
+    events:
+      - http:
+          method: POST
+          path: /crearproducto
+  borrarProducto:
+    handler: handler.borrarProducto
+    events:
+      - http:
+          method: DELETE
+          path: /borrarProducto
+  busqueda:
+    handler: handler.busqueda
+    events:
+      - http:
+          method: GET
+          path: /buscar/{fraccionpalabra}

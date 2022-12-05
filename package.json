@@ -13,6 +13,8 @@
     "serverless-offline": "^11.6.0"
   },
   "dependencies": {
+    "mongodb": "^4.12.1",
+    "mongoose": "^6.7.5",
     "querystring": "^0.2.1"
   }
 }
