@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const producto = require("../models/producto");
 const buscar = require("../models/buscar");
 
-const user = 'delfosti';
-const password = '25BUvFUu8J71hrma';
-const dbname = 'delfosti';
+const { config } = require('./../config/config');
+
+const user = config.dbUser;
+const password = config.dbPassword;
+const dbname = config.dbName;
 const uri = `mongodb+srv://${user}:${password}@delfosticarlosanchayhua.2uy6njc.mongodb.net/${dbname}?retryWrites=true&w=majority`;
 
 mongoose.connect(uri)
@@ -24,9 +26,7 @@ class ProductosService{
     let data;
 
     try{
-      console.log(nombre);
       data = await producto.find({ name: nombre});
-      console.log(nombre);
     }
     catch(error){
       console.log(error);
@@ -37,14 +37,12 @@ class ProductosService{
 
   async updateProducto(body) {
     let data;
-
-    console.log(data);
     try{
-      data = await producto.updateOne();
+      data = await producto.updateOne({name: body.name}, {$set: {status: body.status}});
     }
     catch{
       data = {
-        message: 'ocurrio un error con la base de datos'
+        message: 'ocurrio un error con la actualización en base de datos'
       }
     }
     return data;
@@ -72,14 +70,12 @@ class ProductosService{
 
   async deleteProducto(body) {
     let data;
-
-    console.log(data);
     try{
-      data = await producto.updateOne();
+      data = await producto.deleteMany({name: body.name});
     }
     catch{
       data = {
-        message: 'ocurrio un error con la base de datos'
+        message: 'ocurrio un error con la base de datos al intentar borrar'
       }
     }
     return data;
@@ -90,7 +86,6 @@ class ProductosService{
 
     try{
       data = await buscar.find({fraccion: fraccionpalabra});
-      console.log(data);
     }
     catch(error){
       console.log(error);
